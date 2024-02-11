@@ -1,15 +1,12 @@
 import { Locator, Page } from "@playwright/test";
-import { GlobalPage } from "../lib/GlobalPage.ts"
+import { GlobalPage } from "../basics/global-page.ts"
 
 export class BusinessPage extends GlobalPage {
     readonly url: string;
-    readonly menuContainer: Locator;
   
     constructor(page: Page) {
       super(page);
       this.url = "/en/business/";
-  
-    //   this.menuContainer = this.page.locator('ul[id="menu-menu-biznes-en"]');
     }
   
     async gotoBusinessPage() {

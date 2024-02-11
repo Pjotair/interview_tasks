@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
-import { GlobalPage } from "../lib/GlobalPage.ts"
-// import { HomePageLocators as Selectors } from "./home-page-locators";
+import { GlobalPage } from "../basics/global-page.ts"
+
 
 export class HomePage extends GlobalPage {
   readonly url: string;

@@ -1,10 +1,9 @@
 import { test, expect, Locator } from "@playwright/test";
-import { BusinessPage } from "../models/BusinessPage";
-import { NavContainer } from "../models/NavContainerComponent";
+import { BusinessPage } from "../pages/business-page";
+import { NavContainer } from "../components/nav-container";
 import testParameters from "./DataForTest.json";
 
-// const TEST_PARAMETERS = testParameters["home"];
-// const EXPECTED_STYLES = testParameters["styles"];
+const BUSINESS_MENU: string[] = testParameters["navMenu"].businessMenu;
 
 test.describe("Home Page Tests", () => {
   let businessPage: BusinessPage;
@@ -18,12 +17,20 @@ test.describe("Home Page Tests", () => {
   });
 
   test("Business Page - Navigation Menu", async () => {
-    const menuContainer: Locator = businessPage.menuContainer;
-    await expect(menuContainer).toBeVisible()
-
-    const brandLogo = navContainer.brandLogo;
-    await expect(brandLogo).toBeVisible()
-  })
+    /*
+    link to test documentation
+    */
+    await test.step('B tab', async () => {
+  
+      console.log("START");
+  
+      await expect(navContainer.navMenu).toBeVisible()
+      await navContainer.checkTabs("businessMenu");
+  
+      console.log("END");
+  
+    });
+  });
 
   // test("Home Page - Page Header", async () => {
   //   /*
@@ -62,6 +69,31 @@ test.describe("Home Page Tests", () => {
   //   await test.step("Check navigation", async () => {
   //     await Promise.all([getStartedButton.click(), page.waitForLoadState()]);
   //     await expect(page).toHaveURL(new RegExp(testParameters.docs.url));
+  //   });
+  // });
+});
+
+test.describe("Inne", () => {
+  let businessPage: BusinessPage;
+  let navContainer: NavContainer;
+
+  test.beforeEach(async ({ page }) => {
+    businessPage = new BusinessPage(page);
+    navContainer = new NavContainer(page);
+    // go to Home Page and wait until page is loaded
+    await businessPage.gotoBusinessPage();
+  });
+
+  // test("B Page", async () => {
+  //   await test.step('B tab', async () => {
+
+  //     console.log("START");
+
+  //     await expect(navContainer.navMenu).toBeVisible()
+  //     await navContainer.checkTabs("businessMenu");
+
+  //     console.log("END");
+
   //   });
   // });
 });
