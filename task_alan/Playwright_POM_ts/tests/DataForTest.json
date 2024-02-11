@@ -5,11 +5,12 @@
   },
   "businessPage": {},
   "careerPage": {},
-  "footer": {},
-
-  "styles": {
-    "button": {
-      "hoverColor": "rgb(69, 186, 75)"
+  "footer": {
+    "contact": {
+      "title": "CONTACT",
+      "address": "ul. Obwiednia Południowa 22 44-200 Rybnik",
+      "phone": "+48 32 733 86 00",
+      "email": "info@alan-systems.com"
     }
   }
 }

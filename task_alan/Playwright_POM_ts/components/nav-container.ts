@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from "playwright/test";
-import testParameters from "../tests/DataForTest.json"
-
+import { FooterContainer } from "./footer-container";
+import testParameters from "../tests/DataForTest.json";
 
 export class NavContainer {
   private readonly page: Page;
@@ -19,26 +19,30 @@ export class NavContainer {
 
     this.navMenu = this.page.locator('[class="nav-container"]');
     this.brandLogo = this.navMenu.locator('a > img[alt="Alan System"]');
-    this.wosp = this.navMenu.locator('[class="wosp_img"]')
-    this.languageSwitch = this.navMenu.locator('[class="langs font-white ms-5 d-none d-xl-block"]')
+    this.wosp = this.navMenu.locator('[class="wosp_img"]');
+    this.languageSwitch = this.navMenu.locator(
+      '[class="langs font-white ms-5 d-none d-xl-block"]'
+    );
 
     this.pageHeader = this.page.locator("h1");
   }
 
   public async getNavMenuElements() {
-    let menuElements: string[] = await (this.navMenu).locator("li").allTextContents();
-    menuElements = menuElements.filter(n => n)
+    let menuElements: string[] = await this.navMenu
+      .locator("li")
+      .allTextContents();
+    menuElements = menuElements.filter((n) => n);
     return menuElements;
   }
 
   public async goToTab(tab: string) {
     const element: Locator = this.navMenu.locator(`text=${tab}`).first();
-    
+
     // TO BE REMOVE!!!
-    console.log(await element.innerText())
-    
+    console.log(await element.innerText());
+
     await element.click();
-    await this.page.waitForTimeout(1500)
+    await this.page.waitForTimeout(1500);
   }
 
   public async getMenuElementLocator(currentTab: string): Promise<Locator> {
@@ -62,6 +66,9 @@ export class NavContainer {
       await expect(this.brandLogo).toBeVisible();
       await expect(this.wosp).toBeVisible();
       await expect(this.languageSwitch).toBeVisible();
+
+      const footerContainerInstance = new FooterContainer(this.page);
+      footerContainerInstance.checkFooterContact();
     }
   }
 }

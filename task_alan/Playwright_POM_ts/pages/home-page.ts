@@ -1,6 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import { GlobalPage } from "../basics/global-page.ts"
-
+import { GlobalPage } from "../basics/global-page.ts";
 
 export class HomePage extends GlobalPage {
   readonly url: string;
@@ -11,8 +10,10 @@ export class HomePage extends GlobalPage {
     super(page);
     this.url = "/";
 
-    this.pageTitle = this.page.locator('h1[class="hero__title heroTitle_ohkl"]');
-    this.getStartedButton = this.page.locator('.getStarted_Sjon');
+    this.pageTitle = this.page.locator(
+      'h1[class="hero__title heroTitle_ohkl"]'
+    );
+    this.getStartedButton = this.page.locator(".getStarted_Sjon");
   }
 
   async gotoHomePage() {
