@@ -35,10 +35,6 @@ export class NavContainer {
 
   public async goToTab(tab: string) {
     const element: Locator = this.navMenu.locator(`text=${tab}`).first();
-
-    // TO BE REMOVE!!!
-    console.log(await element.innerText());
-
     await element.click();
     await this.page.waitForLoadState("domcontentloaded");
   }
@@ -50,23 +46,12 @@ export class NavContainer {
 
   public async switchLanguage() {
     await this.switchLanguageButton.click();
-    // await this.page.waitForTimeout(3000);
     await this.page.waitForLoadState("domcontentloaded");
   }
 
   public async checkMenuTabs(context: string, language: string) {
     let menuElements: string[] = await this.getNavMenuElements();
-
-    // console.log("ELEMENTY Z MENU");
-    console.log(context);
-    console.log(language);
-    console.log(menuElements);
-
     const expectedMenuElements = testParameters[context][language].menuOptions;
-
-    // console.log("oczekiwane elementy:")
-    // console.log(expectedMenuElements)
-
     expect(menuElements).toEqual(expectedMenuElements);
 
     menuElements = menuElements.slice(0, -1);
