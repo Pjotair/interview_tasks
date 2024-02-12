@@ -1,11 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { BusinessPage } from "../pages/business-page";
 import { NavContainer } from "../components/nav-container";
-import testParameters from "./DataForTest.json";
-import { FooterContainer } from "../components/footer-container";
-
-const BUSINESS_MENU: string[] = testParameters["navMenu"].businessMenu;
-const expectedFooterContact = testParameters.footer.contact;
 
 test.describe("Home Page Tests", () => {
   let businessPage: BusinessPage;
@@ -23,12 +18,10 @@ test.describe("Home Page Tests", () => {
     link to test documentation
     */
     await test.step("B tab", async () => {
-      console.log("START");
-
+      const context: string = "businessPage";
+      const language: string = "en";
       await expect(navContainer.navMenu).toBeVisible();
-      await navContainer.checkTabs("businessMenu");
-
-      console.log("END");
+      await navContainer.checkMenuTabs(context, language);
     });
   });
 });

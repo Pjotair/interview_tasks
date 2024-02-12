@@ -10,7 +10,6 @@ export class NavContainer {
   readonly brandLogo: Locator;
   readonly wosp: Locator;
   readonly languageSwitch: Locator;
-
   readonly pageHeader: Locator;
 
   constructor(page: Page) {
@@ -23,8 +22,7 @@ export class NavContainer {
     this.languageSwitch = this.navMenu.locator(
       '[class="langs font-white ms-5 d-none d-xl-block"]'
     );
-
-    this.pageHeader = this.page.locator("h1");
+    this.pageHeader = this.page.locator("div.title > h1");
   }
 
   public async getNavMenuElements() {
@@ -42,7 +40,7 @@ export class NavContainer {
     console.log(await element.innerText());
 
     await element.click();
-    await this.page.waitForTimeout(1500);
+    await this.page.waitForLoadState("domcontentloaded");
   }
 
   public async getMenuElementLocator(currentTab: string): Promise<Locator> {
@@ -50,14 +48,12 @@ export class NavContainer {
     return element;
   }
 
-  public async checkTabs(menuPatern: string) {
+  public async checkMenuTabs(context: string, language: string) {
     let menuElements: string[] = await this.getNavMenuElements();
-    const expectedMenuElements = testParameters.navMenu[menuPatern];
+    const expectedMenuElements = testParameters[context][language].menuOptions;
     expect(menuElements).toEqual(expectedMenuElements);
 
     menuElements = menuElements.slice(0, -1);
-    console.log(menuElements);
-
     for (const buttonTab of menuElements) {
       await this.goToTab(buttonTab);
       const currentTab: Locator = await this.getMenuElementLocator(buttonTab);
@@ -67,8 +63,14 @@ export class NavContainer {
       await expect(this.wosp).toBeVisible();
       await expect(this.languageSwitch).toBeVisible();
 
+      const tabName = buttonTab.replace(/\s/g, "").toLowerCase();
+      const pageHeader: string = await this.pageHeader.innerText();
+      const expectedPageHeader: string =
+        testParameters[context][language].headers[tabName];
+      expect(pageHeader).toContain(expectedPageHeader);
+
       const footerContainerInstance = new FooterContainer(this.page);
-      footerContainerInstance.checkFooterContact();
+      footerContainerInstance.checkFooterContact(context, language);
     }
   }
 }

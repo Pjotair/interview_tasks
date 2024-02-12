@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { GlobalPage } from "../basics/global-page.ts";
 
 export class BusinessPage extends GlobalPage {
