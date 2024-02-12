@@ -5,8 +5,6 @@ interface Dictionary<T> {
   [key: string]: T;
 }
 
-// const expectedFooterContact: Dictionary<string> = testParameters.footer.contact;
-
 export class FooterContainer {
   private readonly page: Page;
   readonly footerContactContainer: Locator;
@@ -47,7 +45,6 @@ export class FooterContainer {
     language: string
   ): Promise<void> {
     const contactData: Dictionary<string | null> = await this.getContactData();
-    // const expectedFooterContact: Dictionary<string> = testParameters.footer.contact;
     const expectedFooterContact: Dictionary<string> =
       testParameters[context][language].footer.contact;
     expect(contactData).toMatchObject(expectedFooterContact);

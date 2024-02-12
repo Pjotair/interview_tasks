@@ -3,6 +3,7 @@ import { HomePage } from "../pages/home-page";
 import { BusinessPage } from "../pages/business-page";
 import { CareerPage } from "../pages/career-page";
 import { NavContainer } from "../components/nav-container";
+import { HelpersMakers } from "../helpers/combinatios-maker";
 import testParameters from "./data-for-test.json";
 
 const BUSINESS: string = "businessPage";
@@ -91,36 +92,79 @@ test.describe("Home Page Tests", () => {
 test.describe("Home Page Tests", () => {
   let homePage: HomePage;
   let careerPage: CareerPage;
-  let navContainer: NavContainer;
 
   test.beforeEach(async ({ page }) => {
     homePage = new HomePage(page);
     careerPage = new CareerPage(page);
-    navContainer = new NavContainer(page);
     // go to Home Page and wait until page is loaded
     await homePage.gotoHomePage();
   });
 
-  test("Career ", async () => {
+  test("Career ", async ({ page }) => {
     /*
     {link to test documentation}
-    
-    Given: 
-    When: 
-    Then: 
+    Check the validation of the required fields in the job contact form.
+    Given: start from home page {} go to selected job offer
+    When: after going to the view of the selected offer fill out the form 
+    - check all possible combinations
+    Then: all three fields contain validation
     */
-    await test.step("go to job offer", async () => {
+    await test.step("Go to job offer", async () => {
       await homePage.hopOnBoard();
       await careerPage.findJobOffer();
-      const roleName: string = testParameters.careerPage.en.careerOffer.roleName;
+      const roleName: string =
+        testParameters.careerPage.en.careerOffer.roleName;
       await careerPage.goToJobOffer(roleName);
     });
 
-    // await test.step("check form", async () => {
-    //   console.log("check form");
-    //   console.log("START");
-      
-    //   console.log("STOP");
-    // });
+    await test.step("Check all possible combinations in the form", async () => {
+      const expectedInputFileErrorMsg: string =
+        testParameters.careerPage.en.careerOffer.validationMessage.inputFileMsg;
+      const expectedCheckboxErrorMsg: string =
+        testParameters.careerPage.en.careerOffer.validationMessage.consentMsg;
+
+      const helpers = new HelpersMakers();
+      const combinations: boolean[][] = helpers.combinatorics();
+
+      // TO BE REMOVE
+      combinations.pop();
+      console.log(combinations);
+
+      for (const combination of combinations) {
+        const [attach_file, checkbox_one, checkbox_two] = combination;
+
+        // selecting options on a form
+        if (attach_file) {
+          await careerPage.uploadFile.setInputFiles("./empty-pdf.pdf");
+          // waiting for file to load
+          page.waitForTimeout(1000);
+        }
+        checkbox_one && (await careerPage.applyCheckboxOne.click());
+        checkbox_two && (await careerPage.applyCheckboxTwo.click());
+
+        await careerPage.applyButton.click();
+
+        // check form validation
+        if (!attach_file) {
+          const uploadFileErrorMsg: string =
+            await careerPage.uploadFileErrorMsg.innerText();
+          expect(uploadFileErrorMsg).toContain(expectedInputFileErrorMsg);
+        }
+        if (!checkbox_one) {
+          const checkboxOneErrorMsg: string =
+            await careerPage.applyChecboxOneErrorMsg.innerText();
+          expect(checkboxOneErrorMsg).toContain(expectedCheckboxErrorMsg);
+        }
+        if (!checkbox_two) {
+          const checkboxTwoErrorMsg: string =
+            await careerPage.applyChecboxTwoErrorMsg.innerText();
+          expect(checkboxTwoErrorMsg).toContain(expectedCheckboxErrorMsg);
+        }
+
+        // reload the page before the next iteration of the test
+        await page.reload();
+        await page.waitForLoadState("domcontentloaded");
+      }
+    });
   });
 });

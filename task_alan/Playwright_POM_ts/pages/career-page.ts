@@ -16,14 +16,14 @@ export class CareerPage extends GlobalPage {
     super(page);
     this.findJobOfferButton = this.page.locator('h3 > a[href="/en/career/"]');
 
-    // apply
+    // apply form
     this.applyContainer = this.page.locator('[class="bg-grad form p-5"]');
-    this.uploadFile = this.applyContainer.locator('div[id="upload-1"]');
+    this.uploadFile = this.applyContainer.locator('input[type="file"]');
     this.applyCheckboxOne = this.applyContainer.locator('[id="checkbox-1"]');
     this.applyCheckboxTwo = this.applyContainer.locator('[id="checkbox-2"]');
     this.applyButton = this.applyContainer.locator("button.forminator-button");
-    this.uploadFileErrorMsg = this.uploadFile.locator(
-      "span.forminator-error-message"
+    this.uploadFileErrorMsg = this.applyContainer.locator(
+      'div[id="upload-1"] span.forminator-error-message'
     );
     this.applyChecboxOneErrorMsg = this.applyCheckboxOne.locator(
       "span.forminator-error-message"

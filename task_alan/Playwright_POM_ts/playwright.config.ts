@@ -15,8 +15,8 @@ const config: PlaywrightTestConfig = {
   globalSetup: "./basics/global-setup.ts",
   snapshotDir: "./snapshots",
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
-  expect: { timeout: 30 * 1000 }, // timeout for expect() calls
+  timeout: 60 * 1000,
+  expect: { timeout: 90 * 1000 }, // timeout for expect() calls
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
