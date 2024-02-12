@@ -9,7 +9,7 @@ export class NavContainer {
   readonly navMenu: Locator;
   readonly brandLogo: Locator;
   readonly wosp: Locator;
-  readonly languageSwitch: Locator;
+  readonly switchLanguageButton: Locator;
   readonly pageHeader: Locator;
 
   constructor(page: Page) {
@@ -19,8 +19,8 @@ export class NavContainer {
     this.navMenu = this.page.locator('[class="nav-container"]');
     this.brandLogo = this.navMenu.locator('a > img[alt="Alan System"]');
     this.wosp = this.navMenu.locator('[class="wosp_img"]');
-    this.languageSwitch = this.navMenu.locator(
-      '[class="langs font-white ms-5 d-none d-xl-block"]'
+    this.switchLanguageButton = this.navMenu.locator(
+      '[class="langs font-white ms-5 d-none d-xl-block"] > a'
     );
     this.pageHeader = this.page.locator("div.title > h1");
   }
@@ -48,9 +48,25 @@ export class NavContainer {
     return element;
   }
 
+  public async switchLanguage() {
+    await this.switchLanguageButton.click();
+    // await this.page.waitForTimeout(3000);
+    await this.page.waitForLoadState("domcontentloaded");
+  }
+
   public async checkMenuTabs(context: string, language: string) {
     let menuElements: string[] = await this.getNavMenuElements();
+
+    // console.log("ELEMENTY Z MENU");
+    console.log(context);
+    console.log(language);
+    console.log(menuElements);
+
     const expectedMenuElements = testParameters[context][language].menuOptions;
+
+    // console.log("oczekiwane elementy:")
+    // console.log(expectedMenuElements)
+
     expect(menuElements).toEqual(expectedMenuElements);
 
     menuElements = menuElements.slice(0, -1);
@@ -61,9 +77,10 @@ export class NavContainer {
 
       await expect(this.brandLogo).toBeVisible();
       await expect(this.wosp).toBeVisible();
-      await expect(this.languageSwitch).toBeVisible();
+      await expect(this.switchLanguageButton).toBeVisible();
 
       const tabName = buttonTab.replace(/\s/g, "").toLowerCase();
+      await this.page.waitForSelector("div.title > h1");
       const pageHeader: string = await this.pageHeader.innerText();
       const expectedPageHeader: string =
         testParameters[context][language].headers[tabName];
