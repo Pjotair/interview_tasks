@@ -57,6 +57,13 @@
           "phone": "+48 32 733 86 00",
           "email": "info@alan-systems.com"
         }
+      },
+      "careerOffer": {
+        "roleName": "Software QA/Test Engineer",
+        "validationMessage": {
+          "inputFileMsg": "Use PDF or DOCX files",
+          "consentMsg": "We need your consent"
+        }
       }
     },
     "pl": {

@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "playwright/test";
-import testParameters from "../tests/DataForTest.json";
+import testParameters from "../tests/data-for-test.json";
 
 interface Dictionary<T> {
   [key: string]: T;

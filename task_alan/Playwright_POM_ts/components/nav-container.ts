@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from "playwright/test";
 import { FooterContainer } from "./footer-container";
-import testParameters from "../tests/DataForTest.json";
+import testParameters from "../tests/data-for-test.json";
 
 export class NavContainer {
   private readonly page: Page;

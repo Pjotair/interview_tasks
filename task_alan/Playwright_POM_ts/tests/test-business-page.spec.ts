@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
+import { HomePage } from "../pages/home-page";
 import { BusinessPage } from "../pages/business-page";
 import { CareerPage } from "../pages/career-page";
 import { NavContainer } from "../components/nav-container";
+import testParameters from "./data-for-test.json";
 
 const BUSINESS: string = "businessPage";
 const CAREER: string = "careerPage";
@@ -83,5 +85,42 @@ test.describe("Home Page Tests", () => {
     const language: string = POLSKI;
     await expect(navContainer.navMenu).toBeVisible();
     await navContainer.checkMenuTabs(context, language);
+  });
+});
+
+test.describe("Home Page Tests", () => {
+  let homePage: HomePage;
+  let careerPage: CareerPage;
+  let navContainer: NavContainer;
+
+  test.beforeEach(async ({ page }) => {
+    homePage = new HomePage(page);
+    careerPage = new CareerPage(page);
+    navContainer = new NavContainer(page);
+    // go to Home Page and wait until page is loaded
+    await homePage.gotoHomePage();
+  });
+
+  test("Career ", async () => {
+    /*
+    {link to test documentation}
+    
+    Given: 
+    When: 
+    Then: 
+    */
+    await test.step("go to job offer", async () => {
+      await homePage.hopOnBoard();
+      await careerPage.findJobOffer();
+      const roleName: string = testParameters.careerPage.en.careerOffer.roleName;
+      await careerPage.goToJobOffer(roleName);
+    });
+
+    // await test.step("check form", async () => {
+    //   console.log("check form");
+    //   console.log("START");
+      
+    //   console.log("STOP");
+    // });
   });
 });
