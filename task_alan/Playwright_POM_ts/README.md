@@ -88,9 +88,10 @@ npx playwright test tests/test-business-page.spec.ts
 By default, the tests run in parallel, using the maximum number of available workers needed. You can change the parallel mode by changing the value for the `fullyParallel:` key from `true` to `false` in the `playwright.config.ts` file.
 
 ## Resources
- - Playwright documentation
- - Node
- - Homebrew
+ - [Playwright documentation](https://playwright.dev/)
+ - [Node.js](https://nodejs.org/en)
+ - [TypeScript](https://www.typescriptlang.org/)
+ - [Homebrew](https://brew.sh/)
 
 
 ## Information

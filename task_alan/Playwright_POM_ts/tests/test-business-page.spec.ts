@@ -124,7 +124,7 @@ test.describe("Home Page Tests", () => {
         testParameters.careerPage.en.careerOffer.validationMessage.consentMsg;
 
       const helpers = new HelpersMakers();
-      const combinations: boolean[][] = helpers.combinatorics();
+      const combinations: boolean[][] = helpers.combinatorics(3);
 
       // TO BE REMOVE
       combinations.pop();
