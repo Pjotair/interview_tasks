@@ -1,5 +1,5 @@
 
-# Automated UI testing using 🎭 Playwright with TypeScript  - Recruitment task
+# Automated UI testing using 🎭 Playwright with TypeScript  - Recruitment tasks
 
 ## Table fo contents
 - [Contents of tasks](#contents-of-tasks)
@@ -21,6 +21,9 @@
 
 ## Environment preparation
 ### 1. Install Node.js
+You can check if you have `Node.js` installed by typing `node --version` in your terminal or command line.
+If you want to install `Node.js` follow the instructions for your operating system.
+
 **Using a package manager (recommended):**<br><br>
 **For macOS:**<br>
 You can use Homebrew to install Node.js. Open Terminal and run:
@@ -48,7 +51,7 @@ git clone git@github.com:Pjotair/interview_tasks.git
 ```
 Next go to the directory with POM:
 ```bash
-cd task_alan/Playwright_POM_ts
+cd Playwright_POM_ts_alan_systems
 ```
 
 ### 3. Setup environment and install Playwright
