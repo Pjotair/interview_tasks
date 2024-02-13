@@ -15,6 +15,6 @@
     "@types/node": "^20.11.16"
   },
   "scripts": {
-    "tests": "playwright test tests/ --config=playwright.config.ts --project=Chromium --reporter=list"
+    "tests": "npx playwright test tests/ --config=playwright.config.ts --project=Chromium --reporter=list"
   }
 }

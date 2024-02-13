@@ -1,4 +1,4 @@
-import { PlaywrightTestConfig, devices } from "@playwright/test";
+import { PlaywrightTestConfig } from "@playwright/test";
 import dotenv from "dotenv";
 import path from "path";
 
@@ -15,8 +15,8 @@ const config: PlaywrightTestConfig = {
   globalSetup: "./basics/global-setup.ts",
   snapshotDir: "./snapshots",
   /* Maximum time one test can run for. */
-  timeout: 60 * 1000,
-  expect: { timeout: 90 * 1000 }, // timeout for expect() calls
+  timeout: 120 * 1000,
+  expect: { timeout: 30 * 1000 }, // timeout for expect() calls
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -42,7 +42,7 @@ const config: PlaywrightTestConfig = {
       use: {
         // Run test in specified size
         viewport: { width: 1920, height: 1080 },
-        headless: false,
+        headless: true,
         // Run test in maximized window
         // viewport: null,
         // launchOptions: {

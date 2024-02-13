@@ -100,7 +100,7 @@ test.describe("Home Page Tests", () => {
     await homePage.gotoHomePage();
   });
 
-  test("Career ", async ({ page }) => {
+  test("Check form validation", async ({ page }) => {
     /*
     {link to test documentation}
     Check the validation of the required fields in the job contact form.
@@ -126,16 +126,12 @@ test.describe("Home Page Tests", () => {
       const helpers = new HelpersMakers();
       const combinations: boolean[][] = helpers.combinatorics(3);
 
-      // TO BE REMOVE
-      combinations.pop();
-      console.log(combinations);
-
       for (const combination of combinations) {
         const [attach_file, checkbox_one, checkbox_two] = combination;
 
         // selecting options on a form
         if (attach_file) {
-          await careerPage.uploadFile.setInputFiles("./empty-pdf.pdf");
+          await careerPage.uploadFile.setInputFiles("./pjotair-pdf-file.pdf");
           // waiting for file to load
           page.waitForTimeout(1000);
         }
