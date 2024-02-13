@@ -33,7 +33,7 @@ export class NavContainer {
     return menuElements;
   }
 
-  public async goToTab(tab: string) {
+  public async gotoTab(tab: string) {
     const element: Locator = this.navMenu.locator(`text=${tab}`).first();
     await element.click();
     await this.page.waitForLoadState("domcontentloaded");
@@ -56,7 +56,7 @@ export class NavContainer {
 
     menuElements = menuElements.slice(0, -1);
     for (const buttonTab of menuElements) {
-      await this.goToTab(buttonTab);
+      await this.gotoTab(buttonTab);
       const currentTab: Locator = await this.getMenuElementLocator(buttonTab);
       await expect(currentTab).toHaveClass(this.activeTab);
 

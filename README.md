@@ -88,6 +88,10 @@ To run the tests make sure you are in the directory with POM, then use the comma
 ```bash
 npx playwright test tests/test-business-page.spec.ts
 ```
+You can also use:
+```bash
+npm run tests
+```
 By default, the tests run in parallel, using the maximum number of available workers needed. You can change the parallel mode by changing the value for the `fullyParallel:` key from `true` to `false` in the `playwright.config.ts` file.
 
 ## Resources

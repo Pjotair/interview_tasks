@@ -1,4 +1,4 @@
-export class HelpersMakers {
+export class HelpersMaker {
   public combinatorics(numberOfElements: number): boolean[][] {
     // Creates a list of all possible true, false combinations for a three-element form
     const combinations: boolean[][] = [];

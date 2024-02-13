@@ -3,24 +3,22 @@ import { HomePage } from "../pages/home-page";
 import { BusinessPage } from "../pages/business-page";
 import { CareerPage } from "../pages/career-page";
 import { NavContainer } from "../components/nav-container";
-import { HelpersMakers } from "../helpers/combinatios-maker";
+import { HelpersMaker } from "../helpers/combinatios-maker";
 import testParameters from "./data-for-test.json";
 
 const BUSINESS: string = "businessPage";
 const CAREER: string = "careerPage";
 const ENGLISH: string = "en";
-const POLSKI: string = "pl";
+const POLISH: string = "pl";
 
 test.describe("Home Page Tests", () => {
   let businessPage: BusinessPage;
-  let careerPage: CareerPage;
   let navContainer: NavContainer;
 
   test.beforeEach(async ({ page }) => {
     businessPage = new BusinessPage(page);
-    careerPage = new CareerPage(page);
     navContainer = new NavContainer(page);
-    // go to Home Page and wait until page is loaded
+    // go to Business Page and wait until page is loaded
     await businessPage.gotoBusinessPage();
   });
 
@@ -32,10 +30,8 @@ test.describe("Home Page Tests", () => {
     When: check the menu items and the address in the footer for each tab
     Then: all menu options and the address in the footer are visible
     */
-    const context: string = BUSINESS;
-    const language: string = ENGLISH;
     await expect(navContainer.navMenu).toBeVisible();
-    await navContainer.checkMenuTabs(context, language);
+    await navContainer.checkMenuTabs(BUSINESS, ENGLISH);
   });
 
   test("Career Page - en - Check Navigation Menu and Footer", async () => {
@@ -47,11 +43,9 @@ test.describe("Home Page Tests", () => {
     When: check the menu items and the address in the footer for each tab
     Then: all menu options and the address in the footer are visible
     */
-    await navContainer.goToTab("Career");
-    const context: string = CAREER;
-    const language: string = ENGLISH;
+    await navContainer.gotoTab("Career");
     await expect(navContainer.navMenu).toBeVisible();
-    await navContainer.checkMenuTabs(context, language);
+    await navContainer.checkMenuTabs(CAREER, ENGLISH);
   });
 
   test("Business Page - pl - Check Navigation Menu and Footer", async () => {
@@ -64,10 +58,8 @@ test.describe("Home Page Tests", () => {
     Then: all menu options and the address in the footer are visible
     */
     await navContainer.switchLanguage();
-    const context: string = BUSINESS;
-    const language: string = POLSKI;
     await expect(navContainer.navMenu).toBeVisible();
-    await navContainer.checkMenuTabs(context, language);
+    await navContainer.checkMenuTabs(BUSINESS, POLISH);
   });
 
   test("Career Page - pl - Check Navigation Menu and Footer", async () => {
@@ -80,12 +72,10 @@ test.describe("Home Page Tests", () => {
     When: check the menu items and the address in the footer for each tab
     Then: all menu options and the address in the footer are visible
     */
-    await navContainer.goToTab("Career");
+    await navContainer.gotoTab("Career");
     await navContainer.switchLanguage();
-    const context: string = CAREER;
-    const language: string = POLSKI;
     await expect(navContainer.navMenu).toBeVisible();
-    await navContainer.checkMenuTabs(context, language);
+    await navContainer.checkMenuTabs(CAREER, POLISH);
   });
 });
 
@@ -123,7 +113,7 @@ test.describe("Home Page Tests", () => {
       const expectedCheckboxErrorMsg: string =
         testParameters.careerPage.en.careerOffer.validationMessage.consentMsg;
 
-      const helpers = new HelpersMakers();
+      const helpers = new HelpersMaker();
       const combinations: boolean[][] = helpers.combinatorics(3);
 
       for (const combination of combinations) {
